@@ -1,0 +1,73 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: justus_vote_db
+    environment:
+      POSTGRES_USER: justus
+      POSTGRES_PASSWORD: justus_vote
+      POSTGRES_DB: justus_vote
+    volumes:
+      - vote_pgdata:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - justus_vote_net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U justus -d justus_vote"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: ./api
+    container_name: justus_vote_api
+    environment:
+      DATABASE_URL: postgres://justus:justus_vote@db:5432/justus_vote?sslmode=disable
+      PORT: 8091
+    ports:
+      - "8091:8091"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - justus_vote_net
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./web
+      args:
+        NEXT_PUBLIC_API_URL: http://api:8091
+    container_name: justus_vote_web
+    environment:
+      NEXT_PUBLIC_API_URL: http://api:8091
+    ports:
+      - "3001:3001"
+    depends_on:
+      - api
+    networks:
+      - justus_vote_net
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: justus_vote_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/vote.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - web
+      - api
+    networks:
+      - justus_vote_net
+    restart: unless-stopped
+
+networks:
+  justus_vote_net:
+    driver: bridge
+
+volumes:
+  vote_pgdata:
