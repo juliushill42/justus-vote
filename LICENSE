@@ -1,0 +1,29 @@
+Business Source License 1.1
+
+Licensor:             Julius Cameron Hill / Titan Universal AI LLC
+Licensed Work:        This Repository — Copyright (c) 2026 Julius Cameron Hill
+Additional Use Grant: None
+Change Date:          2030-01-01
+Change License:       Apache 2.0
+
+PATENT NOTICE: This work is covered under the JCH-2026 Provisional Patent Series
+(filed January 20, 2026). Patents include but are not limited to:
+  JCH-2026-001: Autonomous agent orchestration
+  JCH-2026-006: Sovereign WireGuard mesh + key rotation daemon
+  JCH-2026-009/010: WASM isolate + Go gateway + local GGUF routing
+  JCH-2026-JUDGE-001: Adversarial multi-agent legal evaluation swarm
+  JCH-2026-012: Tirus Protocol kernel-level defense system
+
+CLEAN-ROOM RESTRICTION: AI-generated derivative systems that reproduce the
+architectural patterns, data flow designs, or functional specifications of
+this work are NOT protected by clean-room doctrine and remain subject to
+patent infringement claims regardless of source code originality.
+
+ML TRAINING PROHIBITION: Use of this codebase as training data, fine-tuning
+data, or evaluation data for any machine learning model, language model, or
+code generation system is explicitly prohibited without written consent.
+
+Commercial licensing inquiries: corpdev@titanuai.com
+
+THE LICENSED WORK IS PROVIDED "AS IS". THE LICENSOR HEREBY DISCLAIMS ALL
+WARRANTIES AND CONDITIONS, EXPRESS OR IMPLIED.
